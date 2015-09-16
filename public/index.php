@@ -2,6 +2,9 @@
 
 require '../vendor/autoload.php';
 
+require '../db/db.php';
+
+
 $app = new \Slim\Slim();
 
 $app->get('/', function () {
@@ -9,7 +12,11 @@ $app->get('/', function () {
 });
 
 $app->get('/get_usernames', function () {
-  echo 'get usernames';
+  // "Boilerplate" is the namespace in the db.php file
+  $db = new Boilerplate\Database();
+  $db->getUsernames();
 });
+// optional way of calling routes: Namespace\Class:FunctionName
+$app->get('/names', 'Boilerplate\Database:getUsernames');
 
 $app->run();
